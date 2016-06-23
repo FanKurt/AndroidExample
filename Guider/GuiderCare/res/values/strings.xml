@@ -1,0 +1,25 @@
+<resources>
+
+    <string name="app_name">GuiderCare</string>
+    
+    <string name="medicineTitle">Medication reminder</string>
+    <string name="medicineContent">Take your Medicine!</string>
+    
+    <string name="sportTitle">Activity reminder</string>
+    <string name="sportContent">Time to do exercise!</string>
+    
+    <string name="warnTitle">Warnings alert</string>
+    <string name="warnContent">Stayed in dangerous zone too long</string>
+    
+    
+    <string name="verifyBluetoothTitle">Bluetooth permition</string>
+    <string name="verifyBluetoothMessage">Turn on bluetooth and restart app</string>
+    
+    <string name="exceptionTitle">Invalid</string>
+    <string name="exceptionMessage">Device not supported</string>
+    
+    <string name="dialogCancel">Ignore</string>
+    <string name="dialogConfirm">Okay</string>
+    <string name="dialogFeedBack">Data loading</string>
+
+</resources>

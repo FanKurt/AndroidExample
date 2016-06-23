@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">CephApp</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    
+    <string-array name ="state">
+        　    <item>OSD</item>
+　　        <item>MON</item>
+　　        <item>POOLS</item>
+　　        <item>PG STATUS</item>
+　　        <item>USAGE</item>
+		<item>HOSTS</item>
+    </string-array>
+    
+    <string-array name ="message">
+　　        <item>62/62</item>
+　　        <item>3/3</item>
+　　        <item>24</item>
+　　        <item>2.5K/2.5K</item>
+　　        <item>109.8Tb</item>
+		<item>6</item>
+    </string-array>
+    
+    <string-array name ="introduce">
+　　        <item>In &amp; Up</item>
+　　        <item>Quorum</item>
+　　        <item>Active</item>
+　　        <item>Active &amp; Clean</item>
+　　        <item>169.0Tb</item>
+		<item>3 MON/3 OSD</item>
+    </string-array>
+    
+    <string-array name ="slider">
+        <item>叢集Monitoring</item>
+　　        <item>叢集整體健康狀態</item>
+　　        <item>叢集OSD資訊</item>
+　　        <item>叢集MON資訊</item>
+　　        <item>叢集POOLS資訊</item>
+　　        <item>叢集MDS資訊</item>
+		<item>叢集效能分析</item>
+ 		<item>叢集Managing</item>
+		<item>PG參數設定</item>
+　　        <item>OSD參數設定</item>
+		<item>MON參數設定</item>
+		<item>POOLS參數設定</item>
+		<item>設定</item>
+		<item>Log</item>
+		<item>登出</item>
+    </string-array>
+    
+</resources>

@@ -1,0 +1,106 @@
+package com.cephapp.Controller;
+
+import java.util.ArrayList;
+
+import android.graphics.Color;
+import android.view.Gravity;
+import android.view.View;
+import android.view.animation.AnimationSet;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+
+import com.IMAC.FrameWork.FTag;
+import com.IMAC.FrameWork.MainController;
+import com.IMAC.FrameWork.MainFragment;
+import com.cephapp.Adapter.ListViewAdapter;
+import com.cephapp.DialogView.OSDDialogView;
+import com.cephapp.DialogView.OSDDialogView.OnReportListener;
+import com.cephapp.Fragment.OverallFragment;
+import com.cephapp.ItemView.BoxItem;
+import com.cephapp.ItemView.OSDItemView;
+import com.cephapp.Layout.FrameType;
+import com.cephapp.Layout.OSDLayout;
+import com.cephapp.Module.CustomAnimation;
+
+public class OSDController extends MainController {
+	private OSDLayout mtLayout;
+	private ArrayList<View >OSDList;
+	private CustomAnimation mAnimation;
+	private OSDDialogView mDialogView;
+	private AnimationSet mAnimationSet;
+	public OSDController(MainFragment frag) {
+		super(frag);
+	}
+
+	protected void init() {
+		mtLayout = (OSDLayout)frag.getView();
+		mDialogView = new OSDDialogView(context);
+		mAnimationSet = new AnimationSet(false);
+		mAnimation = new CustomAnimation(context);
+		OSDList = new ArrayList<View>();
+		((FrameType)getFrameType()).getTitle().setText("叢集OSD資訊");
+		OSDList();
+		setOnItemListener();
+	}
+
+	private void setOnItemListener() {
+		mDialogView.setOnReportListener(new OnReportListener() {
+			public void onClick(OSDDialogView mOSDDialogView, View v) {
+				mAnimation.setAnimationAlpha(1, 0, 500, 0, true, 0);
+				mDialogView.startAnimation(mAnimation.getAlpha());
+				mDialogView.setTag("dismiss");
+				mOSDDialogView.Dismiss();
+			}
+		});
+
+		mtLayout.getListView().setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				mAnimation.setAnimationAlpha(0, 1, 500, 0, true, 0);
+				mDialogView.startAnimation(mAnimation.getAlpha());
+				mDialogView.setTag("show");
+				mDialogView.Show();
+			}
+		});
+	}
+
+	private void OSDList() {
+		int color [] = {Color.rgb(0, 166, 90) ,Color.rgb(205, 38, 38) ,Color.rgb(235, 167, 9)};
+		for(int i=0 ; i<4 ; i++){
+			OSDItemView mItemView =new OSDItemView(context);
+			mItemView.getBar().setBackgroundColor((i>2)?color[i-3]:color[i]);
+			for(int j=0 ; j<4;j++){
+				BoxItem mItem = new BoxItem(context);
+				mItem.getCardView().setBackgroundColor((j>2)?color[j-3]:color[j]);
+				mItem.getTitlTextView().setText(""+j);
+				mItemView.getContainer().addView(mItem);
+			}
+			mAnimation.setAnimationTranslate(0, 0, 100, 0, 500, 0, true,0);
+			mAnimationSet.addAnimation(mAnimation.getTranslate());
+			mItemView.startAnimation(mAnimationSet);
+			OSDList.add(mItemView);
+		}
+	
+		mtLayout.getListView().setAdapter(new ListViewAdapter(OSDList));
+	}
+
+	public void onDestroyController() {
+		super.onDestroyController();
+	}
+	public boolean onBack() {
+		if(mDialogView.getTag().toString().equals("show")){
+			mAnimation.setAnimationAlpha(1, 0, 500, 0, true, 0);
+			mDialogView.startAnimation(mAnimation.getAlpha());
+			mDialogView.Dismiss();
+			mDialogView.setTag("dismiss");
+		}else if(((FrameType)getFrameType()).getDrawerLayout().isDrawerOpen(Gravity.RIGHT)){
+			((FrameType)getFrameType()).getDrawerLayout().closeDrawer(Gravity.RIGHT);
+		}
+		else{
+			replace(((FrameType)getFrameType()).getBottomFrame().getId(),new OverallFragment(),
+					FTag.FRAGMENT_BOTTOMFRAGMENT);
+		}
+		return false;
+	}
+	
+}
